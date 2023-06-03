@@ -1,0 +1,19 @@
+CREATE TABLE apps (
+  id UUID PRIMARY KEY,
+  name TEXT NOT NULL,
+  description TEXT NOT NULL
+);
+
+CREATE TABLE deeplinks (
+  id UUID PRIMARY KEY,
+  app_id UUID NOT NULL REFERENCES apps (id) ON DELETE CASCADE,
+  description TEXT NOT NULL,
+  url TEXT NOT NULL
+);
+
+CREATE TABLE params (
+  id UUID PRIMARY KEY,
+  deeplink_id UUID NOT NULL REFERENCES deeplinks (id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  value TEXT NOT NULL
+);
